@@ -50,13 +50,25 @@ export CATALINA_BASE=${CATALINA_BASE}
 #cp ./standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 echo -n "-----> Deploying war file(s)... "
-cp *.war $CATALINA_HOME/webapps/
+cp target/*.war $CATALINA_HOME/webapps/
 echo "done"
 
 echo -n "-----> Copy server.xml file(s)... "
 if [ -f $BUILD_DIR/conf/server.xml ]; then
   echo "        WARNING: overwriting existing server.xml"
   cp $BUILD_DIR/conf/server.xml $CATALINA_HOME/conf/
+fi
+
+echo -n "-----> Copy tomee.xml file(s)... "
+if [ -f $BUILD_DIR/conf/tomee.xml ]; then
+  echo "        WARNING: overwriting existing tomee.xml"
+  cp $BUILD_DIR/conf/tomee.xml $CATALINA_HOME/conf/
+fi
+
+echo -n "-----> Copy lib file(s)... "
+if [ -f $BUILD_DIR/lib/ojdbc14-10.2.0.4.jar ]; then
+  echo "        Copying: jar files"
+  cp $BUILD_DIR/lib/ojdbc14-10.2.0.4.jar $CATALINA_HOME/lib/
 fi
 
 echo "-----> Creating configuration..."
