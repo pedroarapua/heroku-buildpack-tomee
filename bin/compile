@@ -53,6 +53,9 @@ echo -n "-----> Deploying war file(s)... "
 cp *.war $CATALINA_HOME/webapps/
 echo "done"
 
+echo -n "-----> Copy server.xml file(s)... "
+cp server.xml $CATALINA_HOME/conf/
+
 echo "-----> Creating configuration..."
 if [ -f $BUILD_DIR/Procfile ]; then
   echo "        WARNING: overwriting existing Procfile"
