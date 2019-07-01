@@ -54,9 +54,9 @@ cp *.war $CATALINA_HOME/webapps/
 echo "done"
 
 echo -n "-----> Copy server.xml file(s)... "
-if [-f $BUILD_DIR/tomcat/conf/server.xml ]; then
+if [ -f $BUILD_DIR/conf/server.xml ]; then
   echo "        WARNING: overwriting existing server.xml"
-  cp $BUILD_DIR/tomcat/conf/server.xml $CATALINA_HOME/conf/
+  cp $BUILD_DIR/conf/server.xml $CATALINA_HOME/conf/
 fi
 
 echo "-----> Creating configuration..."
