@@ -49,7 +49,7 @@ export CATALINA_BASE=${CATALINA_HOME}
 #cp ./standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
 echo -n "-----> Deploying war file(s)... "
-cp target/*.war $CATALINA_HOME/webapps/
+cp *.war $CATALINA_HOME/webapps/
 echo "done"
 
 echo "-----> Creating configuration..."
