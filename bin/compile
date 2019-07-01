@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+# fail fast
+set -e
+
+BP_DIR=$(cd $(dirname $0)/..; pwd) # absolute path
+BIN_DIR=$BP_DIR/bin
+
+# parse args
+BUILD_DIR=$1
+# CACHE_DIR=$2
+# ENV_DIR=$3
+
+# JVM_COMMON_BUILDPACK=${JVM_COMMON_BUILDPACK:-"https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/jvm-common.tgz"}
+# mkdir -p /tmp/jvm-common
+# curl --retry 3 --silent --location $JVM_COMMON_BUILDPACK | tar xzm -C /tmp/jvm-common --strip-components=1
+# . /tmp/jvm-common/bin/util
+# . /tmp/jvm-common/bin/java
+
+# install_java_with_overlay ${BUILD_DIR}
+
+TOMEE_VERSION="8.0.0-M3"
+TOMEE_SHA1="fba77dc596db6fb9eed9c90737d79544ceb66747cdf81fd85316fc2093030a80"
+CATALINA_HOME="tomcat/tomee-${TOMEE_VERSION}"
+
+cd $BUILD_DIR
+
+mkdir -p tomcat
+
+echo -n "-----> Installing TomEE ${TOMEE_VERSION}... "
+curl -O http://ftp.unicamp.br/pub/apache/tomee/tomee-$TOMEE_VERSION/apache-tomee-$TOMEE_VERSION-plus.tar.gz
+echo "downloaded"
+# sha1sum apache-tomee-$TOMEE_VERSION-plus.tar.gz | grep $TOMEE_SHA1 > /dev/null 2>&1
+# echo "verified"
+tar xf apache-tomee-$TOMEE_VERSION-plus.tar.gz
+echo "extracted"
+mv apache-tomee-plus-$TOMEE_VERSION $CATALINA_HOME
+echo "moved"
+rm apache-tomee-$TOMEE_VERSION-plus.tar.gz
+echo "done"
+
+export CATALINA_HOME=${CATALINA_HOME}
+export CATALINA_BASE=${CATALINA_HOME}
+
+#echo "removing standalone default"
+#rm $JBOSS_HOME/standalone/configuration/standalone.xml
+#echo "coping custom standalone"
+#cp ./standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
+
+echo -n "-----> Deploying war file(s)... "
+cp target/*.war $CATALINA_HOME/webapps/
+echo "done"
+
+echo "-----> Creating configuration..."
+if [ -f $BUILD_DIR/Procfile ]; then
+  echo "        WARNING: overwriting existing Procfile"
+fi
+
+cat << EOF > $BUILD_DIR/Procfile
+web: \$CATALINA_HOME/bin/startup.sh
+EOF
