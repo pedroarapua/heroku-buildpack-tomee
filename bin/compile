@@ -53,22 +53,16 @@ echo -n "-----> Deploying war file(s)... "
 cp target/*.war $CATALINA_HOME/webapps/
 echo "done"
 
-echo -n "-----> Copy server.xml file(s)... "
-if [ -f $BUILD_DIR/conf/server.xml ]; then
-  echo "        WARNING: overwriting existing server.xml"
-  cp $BUILD_DIR/conf/server.xml $CATALINA_HOME/conf/
-fi
-
-echo -n "-----> Copy tomee.xml file(s)... "
-if [ -f $BUILD_DIR/conf/tomee.xml ]; then
+echo -n "-----> Copy folder conf file(s)... "
+if [ -d $BUILD_DIR/conf ]; then
   echo "        WARNING: overwriting existing tomee.xml"
-  cp $BUILD_DIR/conf/tomee.xml $CATALINA_HOME/conf/
+  cp $BUILD_DIR/conf/*.xml $CATALINA_HOME/conf/
 fi
 
 echo -n "-----> Copy lib file(s)... "
-if [ -f $BUILD_DIR/lib/ojdbc14-10.2.0.4.jar ]; then
+if [ -f $BUILD_DIR/lib ]; then
   echo "        Copying: jar files"
-  cp $BUILD_DIR/lib/ojdbc14-10.2.0.4.jar $CATALINA_HOME/lib/
+  cp $BUILD_DIR/lib/*.jar $CATALINA_HOME/lib/
 fi
 
 echo "-----> Creating configuration..."
@@ -77,5 +71,5 @@ if [ -f $BUILD_DIR/Procfile ]; then
 fi
 
 cat << EOF > $BUILD_DIR/Procfile
-web: ./tomcat/tomee-8.0.0-M3/bin/startup.sh
+web: ./tomcat/tomee-8.0.0-M3/bin/catalina.sh run
 EOF
