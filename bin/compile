@@ -5,7 +5,7 @@
 set -e
 
 echo "printenv"
-echo printenv
+printenv
 
 BP_DIR=$(cd $(dirname $0)/..; pwd) # absolute path
 BIN_DIR=$BP_DIR/bin
