@@ -4,6 +4,7 @@
 # fail fast
 set -e
 
+echo "printenv"
 echo printenv
 
 BP_DIR=$(cd $(dirname $0)/..; pwd) # absolute path
