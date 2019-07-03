@@ -60,7 +60,7 @@ if [ -d $BUILD_DIR/conf ]; then
 fi
 
 echo -n "-----> Copy lib file(s)... "
-if [ -f $BUILD_DIR/lib ]; then
+if [ -d $BUILD_DIR/lib ]; then
   echo "        Copying: jar files"
   cp $BUILD_DIR/lib/*.jar $CATALINA_HOME/lib/
 fi

@@ -4,6 +4,9 @@ This is a [Heroku Buildpack](https://devcenter.heroku.com/articles/buildpacks) f
 
 ## Usage
 
+Put your conf file(s) in `conf/`.
+Put your jar lib(s) in `lib/`.
+
 Put your WAR file(s) in `target/` and deploy.
 
 ## Using with the Java buildpack
