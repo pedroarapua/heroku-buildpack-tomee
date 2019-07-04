@@ -49,6 +49,8 @@ export CATALINA_BASE=${CATALINA_BASE}
 #echo "coping custom standalone"
 #cp ./standalone.xml $JBOSS_HOME/standalone/configuration/standalone.xml
 
+rm -r $CATALINA_HOME/webapps/
+
 echo -n "-----> Deploying war file(s)... "
 cp target/*.war $CATALINA_HOME/webapps/
 echo "done"
