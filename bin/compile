@@ -52,7 +52,7 @@ export CATALINA_BASE=${CATALINA_BASE}
 rm -r $CATALINA_HOME/webapps/
 
 echo -n "-----> Deploying war file(s)... "
-cp target/*.war $CATALINA_HOME/webapps/
+cp *.war $CATALINA_HOME/webapps/
 echo "done"
 
 echo -n "-----> Copy folder conf file(s)... "
