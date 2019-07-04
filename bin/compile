@@ -56,7 +56,7 @@ echo "done"
 echo -n "-----> Copy folder conf file(s)... "
 if [ -d $BUILD_DIR/conf ]; then
   echo "        WARNING: overwriting existing tomee.xml"
-  cp $BUILD_DIR/conf/*.xml $CATALINA_HOME/conf/
+  cp $BUILD_DIR/conf/*.* $CATALINA_HOME/conf/
 fi
 
 echo -n "-----> Copy lib file(s)... "
