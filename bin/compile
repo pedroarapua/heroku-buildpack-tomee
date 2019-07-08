@@ -68,10 +68,11 @@ if [ -d $BUILD_DIR/lib ]; then
 fi
 
 echo "-----> Creating configuration..."
-if [ -f $BUILD_DIR/Procfile ]; then
-  echo "        WARNING: overwriting existing Procfile"
+if [! -f $BUILD_DIR/Procfile ]; then
+  echo "        WARNING: creating existing Procfile"
+  
+  cat << EOF > $BUILD_DIR/Procfile
+  web: ./apache/tomee/bin/catalina.sh run
+  EOF
 fi
 
-cat << EOF > $BUILD_DIR/Procfile
-web: ./apache/tomee/bin/catalina.sh run
-EOF
