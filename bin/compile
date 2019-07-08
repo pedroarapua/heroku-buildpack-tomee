@@ -66,13 +66,3 @@ if [ -d $BUILD_DIR/lib ]; then
   echo "        Copying: jar files"
   cp $BUILD_DIR/lib/*.jar $CATALINA_HOME/lib/
 fi
-
-echo "-----> Creating configuration..."
-if [! -f $BUILD_DIR/Procfile ]; then
-  echo "        WARNING: creating existing Procfile"
-  
-  cat << EOF > $BUILD_DIR/Procfile
-  web: ./apache/tomee/bin/catalina.sh run
-  EOF
-fi
-
