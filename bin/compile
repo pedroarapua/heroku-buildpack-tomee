@@ -22,12 +22,12 @@ BUILD_DIR=$1
 
 TOMEE_VERSION="8.0.0-M3"
 TOMEE_SHA1="fba77dc596db6fb9eed9c90737d79544ceb66747cdf81fd85316fc2093030a80"
-CATALINA_HOME="tomcat/tomee-${TOMEE_VERSION}"
+CATALINA_HOME="apache/tomee"
 CATALINA_BASE=$CATALINA_HOME
 
 cd $BUILD_DIR
 
-mkdir -p tomcat
+mkdir -p apache
 
 echo -n "-----> Installing TomEE ${TOMEE_VERSION}... "
 curl -O http://ftp.unicamp.br/pub/apache/tomee/tomee-$TOMEE_VERSION/apache-tomee-$TOMEE_VERSION-plus.tar.gz
@@ -73,5 +73,5 @@ if [ -f $BUILD_DIR/Procfile ]; then
 fi
 
 cat << EOF > $BUILD_DIR/Procfile
-web: ./tomcat/tomee-8.0.0-M3/bin/catalina.sh run
+web: ./apache/tomee/bin/catalina.sh run
 EOF
